@@ -36,3 +36,25 @@
     transform: rotate(360deg);
   }
 }
+
+.app-btn,
+.app-badge {
+  padding: 4px;
+  border-radius: 4px;
+  color: '#777';
+}
+
+.app-btn-primary,
+.app-badge-primary {
+  background-color: dodgerblue;
+  color: #fff;
+}
+
+.app-btn-secondary {
+  color: #fff;
+  background-color: gray;
+}
+
+.app-badge-warning {
+  background-color: #f59700bf;
+}

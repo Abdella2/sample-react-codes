@@ -1,8 +1,9 @@
 import { Component, Fragment } from 'react';
+import '../App.css';
 
 class Cart extends Component {
   state = {
-    totalItems: 0
+    totalItems: 1
   };
 
   totalStyle = {
@@ -21,15 +22,18 @@ class Cart extends Component {
         {this.showTotalItems()}
         <br />
         <br />
-        <button>Add</button>
+        <button className="app-btn app-btn-secondary">Add</button>
       </Fragment>
     );
   }
 
   showTotalItems() {
     const { totalItems } = this.state;
+
+    let badgeClasses = 'app-badge app-badge-';
+    badgeClasses += totalItems === 0 ? 'warning' : 'primary';
     return (
-      <span style={this.totalStyle}>
+      <span className={badgeClasses}>
         {totalItems === 0 ? 'Empty' : totalItems}
       </span>
     );
