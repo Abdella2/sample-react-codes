@@ -2,6 +2,8 @@
 
 # dependencies
 /node_modules
+/shopping_cart/node_modules
+/hello_world/node_modules
 /.pnp
 .pnp.js
 
