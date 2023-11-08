@@ -4,10 +4,20 @@ class Cart extends Component {
   state = {
     totalItems: 0
   };
+
+  totalStyle = {
+    backgroundColor: '#f59700bf',
+    padding: '4px',
+    borderRadius: 4,
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#777'
+  };
+
   render() {
     return (
       <Fragment>
-        <h1>Well Come to shopping cart</h1>
+        <h1 style={{ color: 'gray' }}>Well Come to shopping cart</h1>
         {this.showTotalItems()}
         <br />
         <br />
@@ -18,7 +28,11 @@ class Cart extends Component {
 
   showTotalItems() {
     const { totalItems } = this.state;
-    return <span>{totalItems === 0 ? 'Empty' : totalItems}</span>;
+    return (
+      <span style={this.totalStyle}>
+        {totalItems === 0 ? 'Empty' : totalItems}
+      </span>
+    );
   }
 }
 
