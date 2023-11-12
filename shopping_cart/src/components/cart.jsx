@@ -20,6 +20,15 @@ class Cart extends Component {
     color: '#777'
   };
 
+  constructor() {
+    super();
+    this.handleAddItem = this.handleAddItem.bind(this);
+  }
+
+  handleAddItem() {
+    console.log('totalItems', this);
+  }
+
   render() {
     return (
       <Fragment>
@@ -29,7 +38,11 @@ class Cart extends Component {
         <br />
         <div>{this.renderItems()}</div>
 
-        <button className="app-btn app-btn-secondary">Add</button>
+        <button
+          className="app-btn app-btn-secondary"
+          onClick={this.handleAddItem}>
+          Add
+        </button>
       </Fragment>
     );
   }
