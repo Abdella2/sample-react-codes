@@ -3,7 +3,12 @@ import '../App.css';
 
 class Cart extends Component {
   state = {
-    totalItems: 1
+    totalItems: 0,
+    items: [
+      { name: 'banana', count: 10 },
+      { name: 'orange', count: 20 },
+      { name: 'mango', count: 50 }
+    ]
   };
 
   totalStyle = {
@@ -22,6 +27,14 @@ class Cart extends Component {
         {this.showTotalItems()}
         <br />
         <br />
+        <ul style={{ listStyle: 'none', padding: 10 }}>
+          {this.state.items.map((item) => (
+            <li key={item.name}>
+              {item.name} - {item.count}
+            </li>
+          ))}
+        </ul>
+
         <button className="app-btn app-btn-secondary">Add</button>
       </Fragment>
     );
@@ -30,13 +43,17 @@ class Cart extends Component {
   showTotalItems() {
     const { totalItems } = this.state;
 
-    let badgeClasses = 'app-badge app-badge-';
-    badgeClasses += totalItems === 0 ? 'warning' : 'primary';
     return (
-      <span className={badgeClasses}>
+      <span className={this.getBadgeClasses(totalItems)}>
         {totalItems === 0 ? 'Empty' : totalItems}
       </span>
     );
+  }
+
+  getBadgeClasses(totalItems) {
+    let badgeClasses = 'app-badge app-badge-';
+    badgeClasses += totalItems === 0 ? 'warning' : 'primary';
+    return badgeClasses;
   }
 }
 
