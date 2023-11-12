@@ -1,0 +1,10 @@
+table {
+  width: 850px;
+}
+td {
+  width: 150px !important;
+}
+
+/* th {
+  width: 150px !important;
+} */
