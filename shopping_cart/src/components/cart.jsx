@@ -5,9 +5,9 @@ class Cart extends Component {
   state = {
     totalItems: 0,
     items: [
-      { name: 'banana', count: 10 },
-      { name: 'orange', count: 20 },
-      { name: 'mango', count: 50 }
+      { id: 1, name: 'banana', count: 10 },
+      { id: 2, name: 'orange', count: 20 },
+      { id: 3, name: 'mango', count: 50 }
     ]
   };
 
@@ -26,8 +26,20 @@ class Cart extends Component {
   }
 
   handleAddItem() {
-    console.log('totalItems', this);
+    console.log('this', this);
   }
+
+  handleAddItemToCart = (id) => {
+    let state = { ...this.state };
+    state.totalItems++;
+
+    const item = state.items.find((item) => item.id == id);
+    item.count--;
+
+    this.setState({
+      ...state
+    });
+  };
 
   render() {
     return (
@@ -71,6 +83,11 @@ class Cart extends Component {
         {this.state.items.map((item) => (
           <li key={item.name}>
             {item.name} - {item.count}
+            <button
+              style={{ marginLeft: 10 }}
+              onClick={() => this.handleAddItemToCart(item.id)}>
+              add
+            </button>
           </li>
         ))}
       </ul>
