@@ -15,10 +15,12 @@ class Items extends Component {
     const index = items.indexOf(item);
 
     items[index] = { ...item };
-    items[index].count--;
+    items[index].count++;
     this.setState({
       items
     });
+
+    this.props.onIncreaseCart();
   };
 
   handleDelete = (id) => {
@@ -32,6 +34,8 @@ class Items extends Component {
   handleReset = () => {
     const items = this.state.items.map((item) => ({ ...item, count: 0 }));
     this.setState({ items });
+
+    this.props.onResetCart();
   };
 
   render() {

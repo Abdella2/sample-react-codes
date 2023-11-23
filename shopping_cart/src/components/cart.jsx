@@ -37,15 +37,30 @@ class Cart extends Component {
     });
   };
 
+  handleIncreaseCart = () => {
+    const totalItems = this.state.totalItems + 1;
+
+    this.setState({
+      totalItems
+    });
+  };
+
+  handleResetCart = () =>
+    this.setState({
+      totalItems: 0
+    });
+
   render() {
     return (
       <Fragment>
         <h1 style={{ color: 'gray' }}>Well Come to shopping cart</h1>
-        {this.showTotalItems()}
+        Total quantities: {this.showTotalItems()}
         <br />
         <br />
-        <Items />
-
+        <Items
+          onIncreaseCart={this.handleIncreaseCart}
+          onResetCart={this.handleResetCart}
+        />
         <button
           className="app-btn app-btn-secondary"
           onClick={this.handleAddItem}>
