@@ -16,8 +16,12 @@ export class Employees extends Component {
 
   render() {
     const { employees } = this.state;
+    const { length: count } = this.state.employees;
+    if (count === 0) return <p>There is no employee in the database.</p>;
+
     return (
       <Fragment>
+        <p>{count} employees</p>
         <table className="table">
           <thead className="thead">
             <tr>
