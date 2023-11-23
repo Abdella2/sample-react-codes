@@ -21,12 +21,9 @@ class Items extends Component {
       <ul style={{ listStyle: 'none', padding: 10 }}>
         {this.state.items.map((item) => (
           <li key={item.name}>
-            <Item
-              name={item.name}
-              value={item.count}
-              id={item.id}
-              item={item}
-            />
+            <Item name={item.name} value={item.count} id={item.id} item={item}>
+              <span>Item #{item.id}</span>&nbsp;&nbsp;
+            </Item>
           </li>
         ))}
       </ul>

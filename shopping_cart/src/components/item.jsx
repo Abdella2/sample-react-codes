@@ -19,6 +19,7 @@ class Item extends Component {
     const { name, value, id } = this.props;
     return (
       <Fragment>
+        {this.props.children}
         {name} - {this.state.item.count}
         <button
           style={{ marginLeft: 10 }}
