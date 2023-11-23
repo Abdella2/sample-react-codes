@@ -4,15 +4,15 @@ class Item extends Component {
   state = {
     item: this.props.item
   };
-  handleAddItemToCart = (id) => {
-    let state = { ...this.state };
+  // handleAddItemToCart = (id) => {
+  //   let state = { ...this.state };
 
-    state.item.count--;
+  //   state.item.count--;
 
-    this.setState({
-      ...state
-    });
-  };
+  //   this.setState({
+  //     ...state
+  //   });
+  // };
 
   render() {
     console.log(this.props);
@@ -23,9 +23,12 @@ class Item extends Component {
         {name} - {this.state.item.count}
         <button
           style={{ marginLeft: 10 }}
-          onClick={() => this.handleAddItemToCart(id)}>
+          // onClick={() => this.handleAddItemToCart(id)}>
+          onClick={() => this.props.onAddItem(id)}>
           add
         </button>
+        &nbsp;&nbsp;
+        <button onClick={() => this.props.onDelete(id)}>Delete</button>
       </Fragment>
     );
   }

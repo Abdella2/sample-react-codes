@@ -10,6 +10,24 @@ class Items extends Component {
     ]
   };
 
+  handleAddItem = (id) => {
+    const items = this.state.items;
+    const index = this.state.items.findIndex((item) => item.id === id);
+
+    items[index].count--;
+    this.setState({
+      items
+    });
+  };
+
+  handleDelete = (id) => {
+    const items = this.state.items.filter((item) => item.id !== id);
+
+    this.setState({
+      items
+    });
+  };
+
   render() {
     return <Fragment>{this.renderItems()}</Fragment>;
   }
@@ -21,7 +39,13 @@ class Items extends Component {
       <ul style={{ listStyle: 'none', padding: 10 }}>
         {this.state.items.map((item) => (
           <li key={item.name}>
-            <Item name={item.name} value={item.count} id={item.id} item={item}>
+            <Item
+              name={item.name}
+              value={item.count}
+              id={item.id}
+              item={item}
+              onAddItem={(id) => this.handleAddItem(id)}
+              onDelete={(id) => this.handleDelete(id)}>
               <span>Item #{item.id}</span>&nbsp;&nbsp;
             </Item>
           </li>
