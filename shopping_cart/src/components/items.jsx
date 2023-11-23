@@ -29,6 +29,11 @@ class Items extends Component {
     });
   };
 
+  handleReset = () => {
+    const items = this.state.items.map((item) => ({ ...item, count: 0 }));
+    this.setState({ items });
+  };
+
   render() {
     return <Fragment>{this.renderItems()}</Fragment>;
   }
@@ -37,21 +42,24 @@ class Items extends Component {
     return this.state.items.length === 0 ? (
       <p>There is no item</p>
     ) : (
-      <ul style={{ listStyle: 'none', padding: 10 }}>
-        {this.state.items.map((item) => (
-          <li key={item.name}>
-            <Item
-              name={item.name}
-              value={item.count}
-              id={item.id}
-              item={item}
-              onAddItem={this.handleAddItem}
-              onDelete={this.handleDelete}>
-              <span>Item #{item.id}</span>&nbsp;&nbsp;
-            </Item>
-          </li>
-        ))}
-      </ul>
+      <Fragment>
+        <button onClick={this.handleReset}>Reset</button>
+        <ul style={{ listStyle: 'none', padding: 10 }}>
+          {this.state.items.map((item) => (
+            <li key={item.name}>
+              <Item
+                name={item.name}
+                value={item.count}
+                id={item.id}
+                item={item}
+                onAddItem={this.handleAddItem}
+                onDelete={this.handleDelete}>
+                <span>Item #{item.id}</span>&nbsp;&nbsp;
+              </Item>
+            </li>
+          ))}
+        </ul>
+      </Fragment>
     );
   }
 }
