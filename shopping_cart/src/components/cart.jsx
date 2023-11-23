@@ -1,14 +1,10 @@
 import { Component, Fragment } from 'react';
 import '../App.css';
+import Items from './items';
 
 class Cart extends Component {
   state = {
-    totalItems: 0,
-    items: [
-      { id: 1, name: 'banana', count: 10 },
-      { id: 2, name: 'orange', count: 20 },
-      { id: 3, name: 'mango', count: 50 }
-    ]
+    totalItems: 0
   };
 
   totalStyle = {
@@ -33,7 +29,7 @@ class Cart extends Component {
     let state = { ...this.state };
     state.totalItems++;
 
-    const item = state.items.find((item) => item.id == id);
+    const item = state.items.find((item) => item.id === id);
     item.count--;
 
     this.setState({
@@ -48,7 +44,7 @@ class Cart extends Component {
         {this.showTotalItems()}
         <br />
         <br />
-        <div>{this.renderItems()}</div>
+        <Items />
 
         <button
           className="app-btn app-btn-secondary"
@@ -73,25 +69,6 @@ class Cart extends Component {
     let badgeClasses = 'app-badge app-badge-';
     badgeClasses += totalItems === 0 ? 'warning' : 'primary';
     return badgeClasses;
-  }
-
-  renderItems() {
-    return this.state.items.length === 0 ? (
-      <p>There is no item</p>
-    ) : (
-      <ul style={{ listStyle: 'none', padding: 10 }}>
-        {this.state.items.map((item) => (
-          <li key={item.name}>
-            {item.name} - {item.count}
-            <button
-              style={{ marginLeft: 10 }}
-              onClick={() => this.handleAddItemToCart(item.id)}>
-              add
-            </button>
-          </li>
-        ))}
-      </ul>
-    );
   }
 }
 
