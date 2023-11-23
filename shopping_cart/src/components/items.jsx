@@ -44,8 +44,8 @@ class Items extends Component {
               value={item.count}
               id={item.id}
               item={item}
-              onAddItem={(id) => this.handleAddItem(id)}
-              onDelete={(id) => this.handleDelete(id)}>
+              onAddItem={this.handleAddItem}
+              onDelete={this.handleDelete}>
               <span>Item #{item.id}</span>&nbsp;&nbsp;
             </Item>
           </li>
