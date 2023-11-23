@@ -10,10 +10,11 @@ class Items extends Component {
     ]
   };
 
-  handleAddItem = (id) => {
-    const items = this.state.items;
-    const index = this.state.items.findIndex((item) => item.id === id);
+  handleAddItem = (item) => {
+    const items = [...this.state.items];
+    const index = items.indexOf(item);
 
+    items[index] = { ...item };
     items[index].count--;
     this.setState({
       items
