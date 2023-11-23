@@ -10,6 +10,16 @@ class Items extends Component {
     ]
   };
 
+  constructor(props) {
+    super(props);
+    this.props.onUpdateTotalProducts(this.state.items.length);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.items.length !== this.state.items.length)
+      this.props.onUpdateTotalProducts(this.state.items.length);
+  }
+
   handleAddItem = (item) => {
     const items = [...this.state.items];
     const index = items.indexOf(item);

@@ -60,6 +60,7 @@ class Cart extends Component {
         <Items
           onIncreaseCart={this.handleIncreaseCart}
           onResetCart={this.handleResetCart}
+          onUpdateTotalProducts={this.props.onUpdateTotalProducts}
         />
         <button
           className="app-btn app-btn-secondary"
