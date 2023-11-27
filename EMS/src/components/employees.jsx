@@ -1,10 +1,15 @@
+import 'bootstrap/dist/css/bootstrap.css';
 import { Component, Fragment } from 'react';
 import '../App.css';
 import { deleteEmployee, getEmployees } from '../services/fakeEmployeeService';
+import paginate from '../utils/paginate';
+import Pagination from './common/pagination';
 
 export class Employees extends Component {
   state = {
-    employees: getEmployees()
+    employees: getEmployees(),
+    pageSize: 3,
+    currentPage: 1
   };
 
   handleDelete = (id) => {
@@ -14,10 +19,18 @@ export class Employees extends Component {
     });
   };
 
+  handlePageChange = (selectedPage) => {
+    this.setState({
+      currentPage: selectedPage
+    });
+  };
+
   render() {
-    const { employees } = this.state;
+    const { employees: allEmployees, pageSize, currentPage } = this.state;
     const { length: count } = this.state.employees;
     if (count === 0) return <p>There is no employee in the database.</p>;
+
+    const employees = paginate(allEmployees, currentPage, pageSize);
 
     return (
       <Fragment>
@@ -48,6 +61,12 @@ export class Employees extends Component {
             ))}
           </tbody>
         </table>
+        <Pagination
+          totalItems={count}
+          pageSize={pageSize}
+          currentPage={currentPage}
+          onPageChange={this.handlePageChange}
+        />
       </Fragment>
     );
   }

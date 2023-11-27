@@ -19,6 +19,56 @@ const employees = [
       _id: '654131a7145f835973cf5e1f',
       name: 'Female'
     }
+  },
+  {
+    _id: '6540f7295c3acd9dcec70c51',
+    employeeNo: 'EMP055',
+    name: 'Doe',
+    email: 'doe@gmail.com',
+    gender: {
+      _id: '654131a7145f835973cf5e1f',
+      name: 'Female'
+    }
+  },
+  {
+    _id: '6540f7295c3acd9dcec70c5a',
+    employeeNo: 'EMP055',
+    name: 'Doe',
+    email: 'doe@gmail.com',
+    gender: {
+      _id: '654131a7145f835973cf5e1f',
+      name: 'Female'
+    }
+  },
+  {
+    _id: '6540f7295c3acd9dcec70c5b',
+    employeeNo: 'EMP055',
+    name: 'Doe',
+    email: 'doe@gmail.com',
+    gender: {
+      _id: '654131a7145f835973cf5e1f',
+      name: 'Female'
+    }
+  },
+  {
+    _id: '6540f7295c3acd9dcec70c5c',
+    employeeNo: 'EMP055',
+    name: 'Doe',
+    email: 'doe@gmail.com',
+    gender: {
+      _id: '654131a7145f835973cf5e1d',
+      name: 'Male'
+    }
+  },
+  {
+    _id: '6540f7295c3acd9dcec70c2a',
+    employeeNo: 'EMP055',
+    name: 'Doe',
+    email: 'doe@gmail.com',
+    gender: {
+      _id: '654131a7145f835973cf5e1d',
+      name: 'Male'
+    }
   }
 ];
 
