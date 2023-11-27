@@ -33,6 +33,20 @@ class Items extends Component {
     this.props.onIncreaseCart();
   };
 
+  handleDecreaseItem = (item) => {
+    const items = [...this.state.items];
+    const index = items.indexOf(item);
+
+    items[index] = { ...item };
+    items[index].count--;
+
+    this.setState({
+      items
+    });
+
+    this.props.onDecreaseCart();
+  };
+
   handleDelete = (id) => {
     const items = this.state.items.filter((item) => item.id !== id);
 
@@ -67,6 +81,7 @@ class Items extends Component {
                 id={item.id}
                 item={item}
                 onAddItem={this.handleAddItem}
+                onDecreaseItem={this.handleDecreaseItem}
                 onDelete={this.handleDelete}>
                 <span>Item #{item.id}</span>&nbsp;&nbsp;
               </Item>

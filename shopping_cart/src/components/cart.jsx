@@ -1,3 +1,4 @@
+import 'bootstrap/dist/css/bootstrap.css';
 import { Component, Fragment } from 'react';
 import '../App.css';
 import Items from './items';
@@ -45,6 +46,14 @@ class Cart extends Component {
     });
   };
 
+  handleDecreaseCart = () => {
+    const totalItems = this.state.totalItems - 1;
+
+    this.setState({
+      totalItems
+    });
+  };
+
   handleResetCart = () =>
     this.setState({
       totalItems: 0
@@ -59,12 +68,11 @@ class Cart extends Component {
         <br />
         <Items
           onIncreaseCart={this.handleIncreaseCart}
+          onDecreaseCart={this.handleDecreaseCart}
           onResetCart={this.handleResetCart}
           onUpdateTotalProducts={this.props.onUpdateTotalProducts}
         />
-        <button
-          className="app-btn app-btn-secondary"
-          onClick={this.handleAddItem}>
+        <button className="btn btn-secondary" onClick={this.handleAddItem}>
           Add
         </button>
       </Fragment>
