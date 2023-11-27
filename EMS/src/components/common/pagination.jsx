@@ -1,4 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.css';
+import PropTypes from 'prop-types';
 import { Component } from 'react';
 
 class Pagination extends Component {
@@ -38,5 +39,12 @@ class Pagination extends Component {
     );
   }
 }
+
+Pagination.propTypes = {
+  currentPage: PropTypes.number.isRequired,
+  pageSize: PropTypes.number.isRequired,
+  totalItems: PropTypes.number.isRequired,
+  onPageChange: PropTypes.func.isRequired
+};
 
 export default Pagination;
