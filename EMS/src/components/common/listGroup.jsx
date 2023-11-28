@@ -9,7 +9,7 @@ function ListGroup({
     <ul className="list-group">
       {items.map((item) => (
         <li
-          key={item[label]}
+          key={item[value]}
           className={
             item === selectedItem ? 'list-group-item active' : 'list-group-item'
           }

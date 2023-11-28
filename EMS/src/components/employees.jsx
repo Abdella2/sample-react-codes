@@ -11,7 +11,7 @@ import EmployeeTable from './employeeTable';
 export class Employees extends Component {
   state = {
     employees: getEmployees(),
-    genders: [{ name: 'All Gender' }, ...getGenders()],
+    genders: [{ _id: '', name: 'All Gender' }, ...getGenders()],
     pageSize: 3,
     currentPage: 1
   };
