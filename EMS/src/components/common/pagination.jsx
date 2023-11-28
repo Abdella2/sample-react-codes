@@ -1,4 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.css';
+import _ from 'lodash';
 import PropTypes from 'prop-types';
 import { Component } from 'react';
 
@@ -7,10 +8,11 @@ class Pagination extends Component {
     const totalPages = Math.ceil(this.props.totalItems / this.props.pageSize);
     if (totalPages === 1) return [];
 
-    let pages = [];
-    for (let page = 1; page <= totalPages; page++) {
-      pages.push(page);
-    }
+    // let pages = [];
+    // for (let page = 1; page <= totalPages; page++) {
+    //   pages.push(page);
+    // }
+    const pages = _.range(1, totalPages + 1);
     return pages;
   };
 
