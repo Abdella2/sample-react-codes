@@ -6,6 +6,7 @@ import { getGenders } from '../services/fakeGenderService';
 import paginate from '../utils/paginate';
 import ListGroup from './common/listGroup';
 import Pagination from './common/pagination';
+import EmployeeTable from './employeeTable';
 
 export class Employees extends Component {
   state = {
@@ -75,34 +76,7 @@ export class Employees extends Component {
             />
           </div>
           <div className="col">
-            <table className="table">
-              <thead className="thead">
-                <tr>
-                  <th>Employee No.</th>
-                  <th>Name</th>
-                  <th>Email</th>
-                  <th>Gender</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                {employees.map((e) => (
-                  <tr key={e._id}>
-                    <td>{e.employeeNo}</td>
-                    <td>{e.name}</td>
-                    <td>{e.email}</td>
-                    <td>{e.gender.name}</td>
-                    <td>
-                      <button
-                        onClick={() => this.handleDelete(e._id)}
-                        className="btn btn-danger">
-                        Delete
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            <EmployeeTable employees={employees} onDelete={this.handleDelete} />
             <Pagination
               totalItems={count}
               pageSize={pageSize}
