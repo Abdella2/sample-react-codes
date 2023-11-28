@@ -44,20 +44,10 @@ export class Employees extends Component {
     });
   };
 
-  handleSort = (path) => {
-    const sortColumn = { ...this.state.sortColumn };
-
-    if (sortColumn.path === path)
-      sortColumn.order = sortColumn.order === 'asc' ? 'desc' : 'asc';
-    else {
-      sortColumn.path = path;
-      sortColumn.order = 'asc';
-    }
-
+  handleSort = (sortColumn) => {
     this.setState({
       sortColumn
     });
-    console.log(this.state.sortColumn);
   };
 
   render() {
@@ -103,6 +93,7 @@ export class Employees extends Component {
           <div className="col">
             <EmployeeTable
               employees={employees}
+              sortColumn={sortColumn}
               onDelete={this.handleDelete}
               onSort={this.handleSort}
             />
