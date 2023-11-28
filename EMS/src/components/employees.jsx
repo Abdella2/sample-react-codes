@@ -50,10 +50,9 @@ export class Employees extends Component {
     });
   };
 
-  render() {
+  getPagedData = () => {
     const {
       employees: allEmployees,
-      genders,
       pageSize,
       currentPage,
       selectedGender,
@@ -67,17 +66,22 @@ export class Employees extends Component {
           )
         : allEmployees;
 
-    const { length: count } = filteredEmployees;
-
-    if (count === 0) return <p>There is no employee in the database.</p>;
-
     const sortedEmployees = _.orderBy(
       filteredEmployees,
       [sortColumn.path],
       [sortColumn.order]
     );
-
     const employees = paginate(sortedEmployees, currentPage, pageSize);
+    return { totalCount: filteredEmployees.length, data: employees };
+  };
+
+  render() {
+    const { genders, pageSize, currentPage, selectedGender, sortColumn } =
+      this.state;
+
+    const { totalCount: count, data: employees } = this.getPagedData();
+
+    if (count === 0) return <p>There is no employee in the database.</p>;
 
     return (
       <Fragment>
