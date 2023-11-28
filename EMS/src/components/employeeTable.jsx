@@ -1,32 +1,24 @@
 import PropTypes from 'prop-types';
 import { Component } from 'react';
+import TableHeader from './common/tableHeader';
 
 class EmployeeTable extends Component {
-  raiseSort = (path) => {
-    const sortColumn = { ...this.props.sortColumn };
-
-    if (sortColumn.path === path)
-      sortColumn.order = sortColumn.order === 'asc' ? 'desc' : 'asc';
-    else {
-      sortColumn.path = path;
-      sortColumn.order = 'asc';
-    }
-
-    this.props.onSort(sortColumn);
-  };
+  columns = [
+    { path: 'employeeNo', label: 'Employee No.' },
+    { path: 'name', label: 'Name' },
+    { path: 'email', label: 'Email' },
+    { path: 'gender.name', label: 'Gender' },
+    { key: 'delete' }
+  ];
   render() {
-    const { employees, onDelete } = this.props;
+    const { employees, sortColumn, onDelete, onSort } = this.props;
     return (
       <table className="table">
-        <thead className="thead">
-          <tr>
-            <th onClick={() => this.raiseSort('employeeNo')}>Employee No.</th>
-            <th onClick={() => this.raiseSort('name')}>Name</th>
-            <th onClick={() => this.raiseSort('email')}>Email</th>
-            <th onClick={() => this.raiseSort('gender.name')}>Gender</th>
-            <th></th>
-          </tr>
-        </thead>
+        <TableHeader
+          columns={this.columns}
+          sortColumn={sortColumn}
+          onSort={onSort}
+        />
         <tbody>
           {employees.map((e) => (
             <tr key={e._id}>
