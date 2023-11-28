@@ -1,12 +1,12 @@
-function EmployeeTable({ employees, onDelete }) {
+function EmployeeTable({ employees, onDelete, onSort }) {
   return (
     <table className="table">
       <thead className="thead">
         <tr>
-          <th>Employee No.</th>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Gender</th>
+          <th onClick={() => onSort('employeeNo')}>Employee No.</th>
+          <th onClick={() => onSort('name')}>Name</th>
+          <th onClick={() => onSort('email')}>Email</th>
+          <th onClick={() => onSort('gender.name')}>Gender</th>
           <th></th>
         </tr>
       </thead>

@@ -1,4 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.css';
+import _ from 'lodash';
 import { Component, Fragment } from 'react';
 import '../App.css';
 import { deleteEmployee, getEmployees } from '../services/fakeEmployeeService';
@@ -13,7 +14,8 @@ export class Employees extends Component {
     employees: getEmployees(),
     genders: [{ _id: '', name: 'All Gender' }, ...getGenders()],
     pageSize: 3,
-    currentPage: 1
+    currentPage: 1,
+    sortColumn: { path: 'employeeNo', order: 'asc' }
   };
 
   componentDidMount() {
@@ -42,27 +44,50 @@ export class Employees extends Component {
     });
   };
 
+  handleSort = (path) => {
+    const sortColumn = { ...this.state.sortColumn };
+
+    if (sortColumn.path === path)
+      sortColumn.order = sortColumn.order === 'asc' ? 'desc' : 'asc';
+    else {
+      sortColumn.path = path;
+      sortColumn.order = 'asc';
+    }
+
+    this.setState({
+      sortColumn
+    });
+    console.log(this.state.sortColumn);
+  };
+
   render() {
     const {
       employees: allEmployees,
       genders,
       pageSize,
       currentPage,
-      selectedGender
+      selectedGender,
+      sortColumn
     } = this.state;
 
-    let employees =
+    const filteredEmployees =
       selectedGender && selectedGender._id
         ? allEmployees.filter(
             (employee) => employee.gender.name == selectedGender.name
           )
         : allEmployees;
 
-    const { length: count } = employees;
+    const { length: count } = filteredEmployees;
 
     if (count === 0) return <p>There is no employee in the database.</p>;
 
-    employees = paginate(employees, currentPage, pageSize);
+    const sortedEmployees = _.orderBy(
+      filteredEmployees,
+      [sortColumn.path],
+      [sortColumn.order]
+    );
+
+    const employees = paginate(sortedEmployees, currentPage, pageSize);
 
     return (
       <Fragment>
@@ -76,7 +101,11 @@ export class Employees extends Component {
             />
           </div>
           <div className="col">
-            <EmployeeTable employees={employees} onDelete={this.handleDelete} />
+            <EmployeeTable
+              employees={employees}
+              onDelete={this.handleDelete}
+              onSort={this.handleSort}
+            />
             <Pagination
               totalItems={count}
               pageSize={pageSize}
