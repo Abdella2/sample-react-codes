@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { Component } from 'react';
+import TableBody from './common/tableBody';
 import TableHeader from './common/tableHeader';
 
 class EmployeeTable extends Component {
@@ -8,7 +9,16 @@ class EmployeeTable extends Component {
     { path: 'name', label: 'Name' },
     { path: 'email', label: 'Email' },
     { path: 'gender.name', label: 'Gender' },
-    { key: 'delete' }
+    {
+      key: 'delete',
+      content: () => (
+        <button
+          onClick={(item) => this.props.onDelete(item._id)}
+          className="btn btn-danger">
+          Delete
+        </button>
+      )
+    }
   ];
   render() {
     const { employees, sortColumn, onDelete, onSort } = this.props;
@@ -19,23 +29,11 @@ class EmployeeTable extends Component {
           sortColumn={sortColumn}
           onSort={onSort}
         />
-        <tbody>
-          {employees.map((e) => (
-            <tr key={e._id}>
-              <td>{e.employeeNo}</td>
-              <td>{e.name}</td>
-              <td>{e.email}</td>
-              <td>{e.gender.name}</td>
-              <td>
-                <button
-                  onClick={() => onDelete(e._id)}
-                  className="btn btn-danger">
-                  Delete
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
+        <TableBody
+          data={employees}
+          columns={this.columns}
+          onDelete={onDelete}
+        />
       </table>
     );
   }
