@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import { Component } from 'react';
-import TableBody from './common/tableBody';
-import TableHeader from './common/tableHeader';
+import Table from './common/table';
 
 class EmployeeTable extends Component {
   columns = [
@@ -23,18 +22,13 @@ class EmployeeTable extends Component {
   render() {
     const { employees, sortColumn, onDelete, onSort } = this.props;
     return (
-      <table className="table">
-        <TableHeader
-          columns={this.columns}
-          sortColumn={sortColumn}
-          onSort={onSort}
-        />
-        <TableBody
-          data={employees}
-          columns={this.columns}
-          onDelete={onDelete}
-        />
-      </table>
+      <Table
+        data={employees}
+        columns={this.columns}
+        sortColumn={sortColumn}
+        onSort={onSort}
+        onDelete={onDelete}
+      />
     );
   }
 }
