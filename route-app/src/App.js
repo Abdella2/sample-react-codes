@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import Dashboard from './components/dashboard';
+import Dashboard from './components/admin/dashboard';
 import Home from './components/home';
 import NavBar from './components/navbar';
 import NotFound from './components/notFound';
@@ -18,7 +18,7 @@ function App() {
           <Route path="/products/:id" element={<ProductDetails />} />
           <Route path="/posts/:year?/:month?" Component={Posts} />
           <Route path="/messages" element={<Navigate to="/posts" />} />
-          <Route path="/admin" Component={Dashboard} />
+          <Route path="/admin/*" Component={Dashboard} />
           <Route path="/" Component={Home} />
           <Route path="*" element={<NotFound />} />
         </Routes>
