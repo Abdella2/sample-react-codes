@@ -31,6 +31,18 @@ export class Employees extends Component {
     });
   };
 
+  handLikeChange = (employee) => {
+    const employees = [...this.state.employees];
+    const index = employees.indexOf(employee);
+
+    employees[index] = { ...employees[index] };
+    employees[index].isLiked = !employees[index].isLiked;
+
+    this.setState({
+      employees
+    });
+  };
+
   handlePageChange = (selectedPage) => {
     this.setState({
       currentPage: selectedPage
@@ -98,6 +110,7 @@ export class Employees extends Component {
             <EmployeeTable
               employees={employees}
               sortColumn={sortColumn}
+              onLikeChange={this.handLikeChange}
               onDelete={this.handleDelete}
               onSort={this.handleSort}
             />

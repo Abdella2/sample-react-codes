@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { Component } from 'react';
+import Like from './common/like';
 import Table from './common/table';
 
 class EmployeeTable extends Component {
@@ -8,6 +9,15 @@ class EmployeeTable extends Component {
     { path: 'name', label: 'Name' },
     { path: 'email', label: 'Email' },
     { path: 'gender.name', label: 'Gender' },
+    {
+      key: 'like',
+      content: (item) => (
+        <Like
+          isLiked={item.isLiked}
+          onLikeChange={() => this.props.onLikeChange(item)}
+        />
+      )
+    },
     {
       key: 'delete',
       content: () => (
