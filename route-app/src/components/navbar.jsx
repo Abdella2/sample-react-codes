@@ -11,7 +11,7 @@ function NavBar() {
           <Link to="/admin">Admin</Link>
         </li>
         <li>
-          <Link to="/products">Products</Link>
+          <Link to="/products?sortBy=price">Products</Link>
         </li>
         <li>
           <Link to="/posts/2023/11">Posts</Link>
