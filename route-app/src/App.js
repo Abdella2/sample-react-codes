@@ -15,7 +15,7 @@ function App() {
         <Routes>
           <Route path="/products" element={<Products sortBy="date" />} />
           <Route path="/products/:id" element={<ProductDetails />} />
-          <Route path="/posts" Component={Posts} />
+          <Route path="/posts/:year?/:month?" Component={Posts} />
           <Route path="/admin" Component={Dashboard} />
           <Route path="/" Component={Home} />
         </Routes>
