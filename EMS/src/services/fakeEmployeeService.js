@@ -8,7 +8,8 @@ const employees = [
     gender: {
       _id: '654131a7145f835973cf5e1d',
       name: 'Male'
-    }
+    },
+    isLiked: true
   },
   {
     _id: '6540f7295c3acd9dcec70c5d',
@@ -18,7 +19,8 @@ const employees = [
     gender: {
       _id: '654131a7145f835973cf5e1f',
       name: 'Female'
-    }
+    },
+    isLiked: true
   },
   {
     _id: '6540f7295c3acd9dcec70c51',

@@ -1,3 +1,9 @@
 import { createRoot } from 'react-dom/client';
-const element = <h1>Setup</h1>;
-createRoot(document.getElementById('root')).render(element);
+import { BrowserRouter } from 'react-router-dom';
+import App from './App';
+
+createRoot(document.getElementById('root')).render(
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>
+);
