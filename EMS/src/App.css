@@ -8,3 +8,7 @@ td {
 /* th {
   width: 150px !important;
 } */
+
+.clickable {
+  cursor: pointer;
+}
