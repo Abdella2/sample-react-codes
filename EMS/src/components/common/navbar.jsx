@@ -1,21 +1,22 @@
 import 'bootstrap/dist/css/bootstrap.css';
+import { Link, NavLink } from 'react-router-dom';
 const NavBar = () => {
   return (
     <nav className="navbar navbar-expanded-lg navbar-light bg-light">
-      <a href="#" className="navbar-brand">
+      <Link to="/" className="navbar-brand">
         EMS
-      </a>
+      </Link>
       <div className="navbar-collapse">
         <div className="navbar-nav">
-          <a href="#" className="nav-item nav-link">
+          <NavLink to="/employees" className="nav-item nav-link">
             Employees
-          </a>
-          <a href="#" className="nav-item nav-link">
+          </NavLink>
+          <NavLink to="/customers" className="nav-item nav-link">
             Customers
-          </a>
-          <a href="#" className="nav-item nav-link">
+          </NavLink>
+          <NavLink to="/suppliers" className="nav-item nav-link">
             Suppliers
-          </a>
+          </NavLink>
         </div>
       </div>
     </nav>
