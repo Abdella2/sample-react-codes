@@ -41,7 +41,14 @@ class LoginForm extends Component {
   };
 
   validateInput = ({ name, value }) => {
-    return !value.trim() ? `${name} is required` : null;
+    // return !value.trim() ? `${name} is required` : null;
+    const obj = { [name]: value };
+    const schema = { [name]: this.schema[name] };
+    const { error } = Joi.validate(obj, schema);
+
+    if (!error) return null;
+
+    return error.details[0].message;
   };
 
   handleSave = (e) => {
