@@ -6,13 +6,15 @@ import NotFound from './components/common/notFound';
 import Customer from './components/customers';
 import EmployeeForm from './components/employeeForm';
 import { Employees } from './components/employees';
+import LoginForm from './components/loginForm';
 
 const App = () => {
   return (
     <Fragment>
       <NavBar />
-      <div className="content">
+      <div className="container mt-3">
         <Routes>
+          <Route path="/login" element={<LoginForm />} />
           <Route path="/employees" element={<Employees />} />
           <Route path="/employees/:id" element={<EmployeeForm />} />
           <Route path="/customers" element={<Customer />} />
