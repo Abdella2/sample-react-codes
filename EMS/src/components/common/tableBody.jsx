@@ -2,7 +2,7 @@ import _ from 'lodash';
 import { Component } from 'react';
 class TableBody extends Component {
   renderCell = (item, column) => {
-    return _.get(item, column.path) || column.content(item);
+    return (column.content && column.content(item)) || _.get(item, column.path);
   };
 
   createKey(item, column) {
