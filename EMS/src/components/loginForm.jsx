@@ -1,4 +1,5 @@
 import { Component, Fragment, createRef } from 'react';
+import Input from './common/input';
 
 class LoginForm extends Component {
   state = {
@@ -30,30 +31,21 @@ class LoginForm extends Component {
       <Fragment>
         <h1>account</h1>
         <form onSubmit={this.handleSave}>
-          <div className="form-group">
-            <label htmlFor="username">Username</label>
-            <input
-              id="username"
-              name="username"
-              type="text"
-              className="form-control"
-              value={username}
-              onChange={this.handleChange}
-              ref={this.username}
-              autoFocus
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="password">Password</label>
-            <input
-              id="password"
-              name="password"
-              type="text"
-              className="form-control"
-              value={password}
-              onChange={this.handleChange}
-            />
-          </div>
+          <Input
+            name="username"
+            label="Username"
+            value={username}
+            onChange={this.handleChange}
+            ref={this.username}
+            autoFocus
+          />
+          <Input
+            name="password"
+            label="password"
+            type="password"
+            value={password}
+            onChange={this.handleChange}
+          />
           <button className="btn btn-primary">Save</button>
         </form>
       </Fragment>
