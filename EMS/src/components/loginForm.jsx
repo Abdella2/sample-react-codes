@@ -1,3 +1,4 @@
+import Joi from 'joi-browser';
 import { Component, Fragment, createRef } from 'react';
 import Input from './common/input';
 
@@ -13,14 +14,30 @@ class LoginForm extends Component {
   //     this.username.current.focus();
   //   }
 
+  schema = {
+    username: Joi.string().required().label('Username'),
+    password: Joi.string().required().label('Password')
+  };
+
   validate = () => {
-    const { username, password } = this.state.account;
+    const options = {
+      abortEarly: false
+    };
+    const { error } = Joi.validate(this.state.account, this.schema, options);
+
+    if (!error) return null;
+
     const errors = {};
+    error.details.map((err) => (errors[err.path[0]] = err.message));
 
-    if (username.trim() === '') errors.username = 'Username is required';
-    if (password.trim() === '') errors.password = 'Password is required';
+    return errors;
+    // const { username, password } = this.state.account;
+    // const errors = {};
 
-    return Object.keys(errors).length === 0 ? null : errors;
+    // if (username.trim() === '') errors.username = 'Username is required';
+    // if (password.trim() === '') errors.password = 'Password is required';
+
+    // return Object.keys(errors).length === 0 ? null : errors;
   };
 
   validateInput = ({ name, value }) => {
