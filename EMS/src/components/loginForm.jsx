@@ -1,9 +1,16 @@
-import { Component, Fragment } from 'react';
+import { Component, Fragment, createRef } from 'react';
 
 class LoginForm extends Component {
   state = {
     account: { username: '', password: '' }
   };
+
+  username = createRef();
+
+  //   componentDidMount() {
+  //     this.username.current.focus();
+  //   }
+
   handleSave = (e) => {
     e.preventDefault();
     console.log('saving');
@@ -32,6 +39,8 @@ class LoginForm extends Component {
               className="form-control"
               value={username}
               onChange={this.handleChange}
+              ref={this.username}
+              autoFocus
             />
           </div>
           <div className="form-group">
