@@ -1,11 +1,18 @@
 import PropTypes from 'prop-types';
 import { Component } from 'react';
+import { Link } from 'react-router-dom';
 import Like from './common/like';
 import Table from './common/table';
 
 class EmployeeTable extends Component {
   columns = [
-    { path: 'employeeNo', label: 'Employee No.' },
+    {
+      path: 'employeeNo',
+      label: 'Employee No.',
+      content: (item) => (
+        <Link to={`/employees/${item._id}`}>{item.employeeNo}</Link>
+      )
+    },
     { path: 'name', label: 'Name' },
     { path: 'email', label: 'Email' },
     { path: 'gender.name', label: 'Gender' },
