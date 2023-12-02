@@ -17,10 +17,14 @@ class LoginForm extends Component {
     const { username, password } = this.state.account;
     const errors = {};
 
-    if (username === '') errors.username = 'Username is required';
-    if (password === '') errors.password = 'Password is required';
+    if (username.trim() === '') errors.username = 'Username is required';
+    if (password.trim() === '') errors.password = 'Password is required';
 
     return Object.keys(errors).length === 0 ? null : errors;
+  };
+
+  validateInput = ({ name, value }) => {
+    return !value.trim() ? `${name} is required` : null;
   };
 
   handleSave = (e) => {
@@ -35,11 +39,18 @@ class LoginForm extends Component {
   };
 
   handleChange = ({ currentTarget: input }) => {
+    const errorMessage = this.validateInput(input);
+    const errors = { ...this.state.errors };
+    errorMessage
+      ? (errors[input.name] = errorMessage)
+      : delete errors[input.name];
+
     const account = { ...this.state.account };
     account[input.name] = input.value;
 
     this.setState({
-      account
+      account,
+      errors
     });
   };
 
