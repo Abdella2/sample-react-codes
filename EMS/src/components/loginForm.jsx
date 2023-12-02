@@ -3,7 +3,8 @@ import Input from './common/input';
 
 class LoginForm extends Component {
   state = {
-    account: { username: '', password: '' }
+    account: { username: '', password: '' },
+    errors: {}
   };
 
   username = createRef();
@@ -12,8 +13,24 @@ class LoginForm extends Component {
   //     this.username.current.focus();
   //   }
 
+  validate = () => {
+    const { username, password } = this.state.account;
+    const errors = {};
+
+    if (username === '') errors.username = 'Username is required';
+    if (password === '') errors.password = 'Password is required';
+
+    return Object.keys(errors).length === 0 ? null : errors;
+  };
+
   handleSave = (e) => {
     e.preventDefault();
+
+    const errors = this.validate();
+
+    this.setState({ errors: errors || {} });
+    if (errors) return;
+
     console.log('saving');
   };
 
@@ -25,18 +42,21 @@ class LoginForm extends Component {
       account
     });
   };
+
   render() {
     const { username, password } = this.state.account;
+    const { errors } = this.state;
     return (
       <Fragment>
-        <h1>account</h1>
+        <h1>Login</h1>
         <form onSubmit={this.handleSave}>
           <Input
             name="username"
             label="Username"
             value={username}
+            error={errors.username}
             onChange={this.handleChange}
-            ref={this.username}
+            // ref={this.username}
             autoFocus
           />
           <Input
@@ -44,6 +64,7 @@ class LoginForm extends Component {
             label="password"
             type="password"
             value={password}
+            error={errors.password}
             onChange={this.handleChange}
           />
           <button className="btn btn-primary">Save</button>
