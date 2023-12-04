@@ -1,18 +1,20 @@
-import { Fragment } from 'react';
-import { useParams } from 'react-router-dom';
+import { Component, Fragment } from 'react';
+import withRouter from './hoc/withRouter';
 
-const EmployeeForm = () => {
-  const { id } = useParams();
-  return (
-    <Fragment>
-      <h1>Employee Form-{id}</h1>
-      <button
-        className="btn btn-primary btn-sm"
-        onClick={() => console.log(id)}>
-        Save
-      </button>
-    </Fragment>
-  );
-};
+class EmployeeForm extends Component {
+  render() {
+    const { params } = this.props;
+    return (
+      <Fragment>
+        <h1>Employee Form-{params.id}</h1>
+        <button
+          className="btn btn-primary btn-sm"
+          onClick={() => console.log(params.id)}>
+          Save
+        </button>
+      </Fragment>
+    );
+  }
+}
 
-export default EmployeeForm;
+export default withRouter(EmployeeForm);
