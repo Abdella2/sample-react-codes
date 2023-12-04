@@ -24,8 +24,6 @@ class LoginForm extends Form {
   };
 
   render() {
-    const { username, password } = this.state.data;
-    const { errors } = this.state;
     return (
       <Fragment>
         <h1>Login</h1>
