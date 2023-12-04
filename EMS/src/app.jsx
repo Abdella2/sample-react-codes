@@ -7,7 +7,7 @@ import Customer from './components/customers';
 import EmployeeForm from './components/employeeForm';
 import { Employees } from './components/employees';
 import LoginForm from './components/loginForm';
-import Register from './components/register';
+import RegisterForm from './components/registerForm';
 
 const App = () => {
   return (
@@ -16,8 +16,9 @@ const App = () => {
       <div className="container mt-3">
         <Routes>
           <Route path="/login" element={<LoginForm />} />
-          <Route path="/register" element={<Register />} />
+          <Route path="/register" element={<RegisterForm />} />
           <Route path="/employees" element={<Employees />} />
+          <Route path="/employees/new" element={<EmployeeForm />} />
           <Route path="/employees/:id" element={<EmployeeForm />} />
           <Route path="/customers" element={<Customer />} />
           <Route path="/suppliers" element={<Suppliers />} />

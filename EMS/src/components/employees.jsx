@@ -1,6 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import _ from 'lodash';
 import { Component, Fragment } from 'react';
+import { Link } from 'react-router-dom';
 import '../App.css';
 import { deleteEmployee, getEmployees } from '../services/fakeEmployeeService';
 import { getGenders } from '../services/fakeGenderService';
@@ -97,7 +98,14 @@ export class Employees extends Component {
 
     return (
       <Fragment>
-        <p>{count} employees</p>
+        <div className="row">
+          <div className="col-7 offset-3">{count} employees</div>
+          <div className="col">
+            <Link to="/employees/new" className="btn btn-primary">
+              New Employee
+            </Link>
+          </div>
+        </div>
         <div className="row">
           <div className="col-3">
             <ListGroup

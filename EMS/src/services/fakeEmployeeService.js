@@ -17,7 +17,7 @@ const employees = [
     name: 'Doe',
     email: 'doe@gmail.com',
     gender: {
-      _id: '654131a7145f835973cf5e1f',
+      _id: '654131a7145f835973cf5e1',
       name: 'Female'
     },
     isLiked: true
@@ -28,7 +28,7 @@ const employees = [
     name: 'Doe',
     email: 'doe@gmail.com',
     gender: {
-      _id: '654131a7145f835973cf5e1f',
+      _id: '654131a7145f835973cf5e1',
       name: 'Female'
     }
   },
@@ -38,7 +38,7 @@ const employees = [
     name: 'Doe',
     email: 'doe@gmail.com',
     gender: {
-      _id: '654131a7145f835973cf5e1f',
+      _id: '654131a7145f835973cf5e1',
       name: 'Female'
     }
   },
@@ -48,7 +48,7 @@ const employees = [
     name: 'Doe',
     email: 'doe@gmail.com',
     gender: {
-      _id: '654131a7145f835973cf5e1f',
+      _id: '654131a7145f835973cf5e1',
       name: 'Female'
     }
   },
@@ -88,9 +88,12 @@ export function saveEmployee(emp) {
   employee.employeeNo = emp.employeeNo;
   employee.name = emp.name;
   employee.email = emp.email;
-  employee.gender = gender.getGender((g) => g._id === emp.genderId);
+  employee.gender = gender.getGender(emp.genderId);
 
-  if (!employee._id) employees.push(employee);
+  if (!employee._id) {
+    employee._id = Date.now().toString();
+    employees.push(employee);
+  }
 
   return employee;
 }
