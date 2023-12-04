@@ -40,7 +40,7 @@ class Form extends Component {
     return error.details[0].message;
   };
 
-  handleSave = (e) => {
+  handleSubmit = (e) => {
     e.preventDefault();
 
     const errors = this.validate();

@@ -2,7 +2,7 @@ import Joi from 'joi-browser';
 import { Fragment } from 'react';
 import Form from './common/form';
 
-class Register extends Form {
+class RegisterForm extends Form {
   state = {
     data: { username: '', password: '', name: '' },
     errors: {}
@@ -21,7 +21,7 @@ class Register extends Form {
     return (
       <Fragment>
         <h1>Register</h1>
-        <form onSubmit={this.handleSave}>
+        <form onSubmit={this.handleSubmit}>
           {this.renderInput('username', 'Username')}
           {this.renderInput('password', 'Password', 'password')}
           {this.renderInput('name', 'Name')}
@@ -32,4 +32,4 @@ class Register extends Form {
   }
 }
 
-export default Register;
+export default RegisterForm;
