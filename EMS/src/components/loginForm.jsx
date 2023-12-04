@@ -1,7 +1,6 @@
 import Joi from 'joi-browser';
 import { Fragment, createRef } from 'react';
 import Form from './common/form';
-import Input from './common/input';
 
 class LoginForm extends Form {
   state = {
@@ -31,26 +30,10 @@ class LoginForm extends Form {
       <Fragment>
         <h1>Login</h1>
         <form onSubmit={this.handleSave}>
-          <Input
-            name="username"
-            label="Username"
-            value={username}
-            error={errors.username}
-            onChange={this.handleChange}
-            // ref={this.username}
-            autoFocus
-          />
-          <Input
-            name="password"
-            label="password"
-            type="password"
-            value={password}
-            error={errors.password}
-            onChange={this.handleChange}
-          />
-          <button className="btn btn-primary" disabled={this.validate()}>
-            Save
-          </button>
+          {this.renderInput('username', 'Username', 'text', true)}
+          {this.renderInput('password', 'Password', 'password')}
+
+          {this.renderSubmitButton('Login')}
         </form>
       </Fragment>
     );

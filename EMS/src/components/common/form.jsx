@@ -1,5 +1,6 @@
 import Joi from 'joi-browser';
 import { Component } from 'react';
+import Input from './input';
 
 class Form extends Component {
   state = {
@@ -65,6 +66,29 @@ class Form extends Component {
       errors
     });
   };
+
+  renderInput(name, label, type = 'text', autoFocus = false) {
+    return (
+      <Input
+        name={name}
+        label={label}
+        type={type}
+        value={this.state.data[name]}
+        error={this.state.errors[name]}
+        onChange={this.handleChange}
+        // ref={this.username}
+        autoFocus={autoFocus}
+      />
+    );
+  }
+
+  renderSubmitButton(label) {
+    return (
+      <button className="btn btn-primary" disabled={this.validate()}>
+        {label}
+      </button>
+    );
+  }
 }
 
 export default Form;
