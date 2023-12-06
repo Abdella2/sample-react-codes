@@ -1,4 +1,6 @@
+import axios from 'axios';
 import { Component, Fragment } from 'react';
+import withRouter from './hoc/withRouter';
 
 class PostForm extends Component {
   state = {
@@ -12,10 +14,18 @@ class PostForm extends Component {
     this.setState({ post });
   };
 
-  handleSubmit = (e) => {
+  handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(this.state.post);
-    console.log('saving');
+
+    const { post } = this.state;
+    const { navigate } = this.props;
+    try {
+      await axios.post('https://jsonplaceholder.typicode.com/posts', post);
+      return navigate('/posts');
+    } catch (error) {
+      await axios.post('http://localhost:4000/api/posts', post);
+      return navigate('/posts');
+    }
   };
   render() {
     const { post } = this.state;
@@ -52,4 +62,4 @@ class PostForm extends Component {
   }
 }
 
-export default PostForm;
+export default withRouter(PostForm);
