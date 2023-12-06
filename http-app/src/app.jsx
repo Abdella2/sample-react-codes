@@ -9,6 +9,7 @@ class App extends Component {
       <div className="container mt-3">
         <Routes>
           <Route path="/posts/new" element={<PostForm />} />
+          <Route path="/posts/:id" element={<PostForm />} />
           <Route path="/posts" element={<PostTable />} />
           <Route path="/" element={<Navigate to={'/posts'} />} />
         </Routes>

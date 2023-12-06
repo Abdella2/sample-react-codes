@@ -23,8 +23,6 @@ class PostTable extends Component {
     }
   }
 
-  handleUpdate = () => console.log('Updating');
-
   handleDelete = () => console.log('Deleting');
   render() {
     return (
@@ -45,9 +43,9 @@ class PostTable extends Component {
               <tr key={post.id}>
                 <td>{post.title}</td>
                 <td>
-                  <button className="btn btn-info" onClick={this.handleUpdate}>
+                  <Link className="btn btn-info" to={`/posts/${post.id}`}>
                     Update
-                  </button>
+                  </Link>
                 </td>
                 <td>
                   <button

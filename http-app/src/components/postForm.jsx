@@ -21,6 +21,24 @@ class PostForm extends Component {
     const { error } = Joi.validate(partialPost, schema);
     return error ? error.details[0].message : null;
   };
+  async componentDidMount() {
+    const { params } = this.props;
+
+    if (!params.id) return;
+    try {
+      const { data: post } = await axios.get(
+        `http://localhost:4000/api/posts/${params.id}`
+      );
+      this.setState({ post: this.populatePost(post) });
+    } catch (error) {}
+  }
+
+  populatePost = (post) => {
+    return {
+      title: post.title,
+      body: post.body
+    };
+  };
 
   handleChange = ({ currentTarget: input }) => {
     const errors = { ...this.state.errors };
@@ -48,7 +66,7 @@ class PostForm extends Component {
     e.preventDefault();
 
     const { post } = this.state;
-    const { navigate } = this.props;
+    const { navigate, params } = this.props;
 
     const errors = this.validate();
     this.setState({ errors: errors || {} });
@@ -56,10 +74,18 @@ class PostForm extends Component {
     if (errors) return;
 
     try {
-      await axios.post('https://jsonplaceholder.typicode.com/posts', post);
+      if (!params.id)
+        await axios.post('https://jsonplaceholder.typicode.com/posts', post);
+      else
+        await axios.put(
+          `https://jsonplaceholder.typicode.com/posts/${params.id}`,
+          post
+        );
       return navigate('/posts');
     } catch (error) {
-      await axios.post('http://localhost:4000/api/posts', post);
+      if (!params.id) await axios.post('http://localhost:4000/api/posts', post);
+      else
+        await axios.put(`http://localhost:4000/api/posts/${params.id}`, post);
       return navigate('/posts');
     }
   };
