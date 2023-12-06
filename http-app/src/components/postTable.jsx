@@ -3,6 +3,19 @@ import { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import withRouter from './hoc/withRouter';
 
+axios.interceptors.response.use(null, (error) => {
+  const expectedError =
+    error.response &&
+    error.response.status >= 400 &&
+    error.response.status < 500;
+  if (!expectedError) {
+    console.log('Logging the error', error);
+    alert('An unexpected error occurred.');
+  }
+
+  return Promise.reject(error);
+});
+
 class PostTable extends Component {
   state = {
     posts: []
@@ -34,10 +47,7 @@ class PostTable extends Component {
     } catch (error) {
       if (error.response && error.response.status === 404)
         alert('The post has already been deleted.');
-      else {
-        console.log('Logging the error', error);
-        alert('An unexpected error occurred.');
-      }
+
       this.setState({ posts: originalPosts });
     }
   };
