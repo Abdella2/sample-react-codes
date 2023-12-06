@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
+import withRouter from './hoc/withRouter';
 
 class PostTable extends Component {
   state = {
@@ -8,10 +9,18 @@ class PostTable extends Component {
   };
 
   async componentDidMount() {
-    const { data: posts } = await axios.get(
-      'https://jsonplaceholder.typicode.com/posts'
-    );
-    this.setState({ posts });
+    try {
+      const { data: posts } = await axios.get(
+        'https://jsonplaceholder.typicode.com/posts'
+      );
+      this.setState({ posts });
+    } catch (error) {
+      console.log("couldn't connect to json placeholder");
+      const { data: posts } = await axios.get(
+        'http://localhost:4000/api/posts'
+      );
+      this.setState({ posts });
+    }
   }
 
   handleUpdate = () => console.log('Updating');
@@ -55,4 +64,4 @@ class PostTable extends Component {
     );
   }
 }
-export default PostTable;
+export default withRouter(PostTable);
