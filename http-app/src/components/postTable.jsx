@@ -23,7 +23,19 @@ class PostTable extends Component {
     }
   }
 
-  handleDelete = () => console.log('Deleting');
+  handleDelete = async (post) => {
+    const originalPosts = this.state.posts;
+
+    const posts = originalPosts.filter((p) => p.id !== post.id);
+    this.setState({ posts });
+
+    try {
+      await axios.delete(`http://localhost:4000/api/posts/${post.id}`);
+    } catch (error) {
+      alert('Something went wrong while deleting.');
+      this.setState({ posts: originalPosts });
+    }
+  };
   render() {
     return (
       <Fragment>
@@ -50,7 +62,7 @@ class PostTable extends Component {
                 <td>
                   <button
                     className="btn btn-danger"
-                    onClick={this.handleDelete}>
+                    onClick={() => this.handleDelete(post)}>
                     Delete
                   </button>
                 </td>
