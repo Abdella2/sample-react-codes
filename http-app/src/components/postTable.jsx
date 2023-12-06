@@ -32,7 +32,12 @@ class PostTable extends Component {
     try {
       await axios.delete(`http://localhost:4000/api/posts/${post.id}`);
     } catch (error) {
-      alert('Something went wrong while deleting.');
+      if (error.response && error.response.status === 404)
+        alert('The post has already been deleted.');
+      else {
+        console.log('Logging the error', error);
+        alert('An unexpected error occurred.');
+      }
       this.setState({ posts: originalPosts });
     }
   };
