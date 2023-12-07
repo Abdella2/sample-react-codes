@@ -74,18 +74,12 @@ class PostForm extends Component {
     if (errors) return;
 
     try {
-      if (!params.id)
-        await http.post('https://jsonplaceholder.typicode.com/posts', post);
-      else
-        await http.put(
-          `https://jsonplaceholder.typicode.com/posts/${params.id}`,
-          post
-        );
-      return navigate('/posts');
-    } catch (error) {
       if (!params.id) await http.post('http://localhost:4000/api/posts', post);
       else await http.put(`http://localhost:4000/api/posts/${params.id}`, post);
       return navigate('/posts');
+    } catch (error) {
+      if (error.response && error.response.status === 400)
+        alert('The form data is not valid');
     }
   };
   render() {
