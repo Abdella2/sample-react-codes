@@ -1,5 +1,6 @@
 import Joi from 'joi-browser';
 import { Component, Fragment } from 'react';
+import config from '../config.json';
 import http from '../services/httpService';
 import withRouter from './hoc/withRouter';
 
@@ -27,7 +28,7 @@ class PostForm extends Component {
     if (!params.id) return;
     try {
       const { data: post } = await http.get(
-        `http://localhost:4000/api/posts/${params.id}`
+        `${config.apiEndpoint}/${params.id}`
       );
       this.setState({ post: this.populatePost(post) });
     } catch (error) {}

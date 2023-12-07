@@ -1,5 +1,6 @@
 import { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
+import config from '../config.json';
 import http from '../services/httpService';
 import withRouter from './hoc/withRouter';
 
@@ -16,7 +17,7 @@ class PostTable extends Component {
       this.setState({ posts });
     } catch (error) {
       console.log("couldn't connect to json placeholder");
-      const { data: posts } = await http.get('http://localhost:4000/api/posts');
+      const { data: posts } = await http.get(config.apiEndpoint);
       this.setState({ posts });
     }
   }
@@ -28,7 +29,7 @@ class PostTable extends Component {
     this.setState({ posts });
 
     try {
-      await http.delete(`http://localhost:4000/api/posts/${post.id}`);
+      await http.delete(`${config.apiEndpoint}/${post.id}`);
     } catch (error) {
       if (error.response && error.response.status === 404)
         alert('The post has already been deleted.');
