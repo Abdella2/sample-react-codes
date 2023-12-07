@@ -1,20 +1,7 @@
-import axios from 'axios';
 import { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
+import http from '../services/httpService';
 import withRouter from './hoc/withRouter';
-
-axios.interceptors.response.use(null, (error) => {
-  const expectedError =
-    error.response &&
-    error.response.status >= 400 &&
-    error.response.status < 500;
-  if (!expectedError) {
-    console.log('Logging the error', error);
-    alert('An unexpected error occurred.');
-  }
-
-  return Promise.reject(error);
-});
 
 class PostTable extends Component {
   state = {
@@ -23,15 +10,13 @@ class PostTable extends Component {
 
   async componentDidMount() {
     try {
-      const { data: posts } = await axios.get(
+      const { data: posts } = await http.get(
         'https://jsonplaceholder.typicode.com/posts'
       );
       this.setState({ posts });
     } catch (error) {
       console.log("couldn't connect to json placeholder");
-      const { data: posts } = await axios.get(
-        'http://localhost:4000/api/posts'
-      );
+      const { data: posts } = await http.get('http://localhost:4000/api/posts');
       this.setState({ posts });
     }
   }
@@ -43,7 +28,7 @@ class PostTable extends Component {
     this.setState({ posts });
 
     try {
-      await axios.delete(`http://localhost:4000/api/posts/${post.id}`);
+      await http.delete(`http://localhost:4000/api/posts/${post.id}`);
     } catch (error) {
       if (error.response && error.response.status === 404)
         alert('The post has already been deleted.');

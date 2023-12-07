@@ -1,6 +1,6 @@
-import axios from 'axios';
 import Joi from 'joi-browser';
 import { Component, Fragment } from 'react';
+import http from '../services/httpService';
 import withRouter from './hoc/withRouter';
 
 class PostForm extends Component {
@@ -26,7 +26,7 @@ class PostForm extends Component {
 
     if (!params.id) return;
     try {
-      const { data: post } = await axios.get(
+      const { data: post } = await http.get(
         `http://localhost:4000/api/posts/${params.id}`
       );
       this.setState({ post: this.populatePost(post) });
@@ -75,17 +75,16 @@ class PostForm extends Component {
 
     try {
       if (!params.id)
-        await axios.post('https://jsonplaceholder.typicode.com/posts', post);
+        await http.post('https://jsonplaceholder.typicode.com/posts', post);
       else
-        await axios.put(
+        await http.put(
           `https://jsonplaceholder.typicode.com/posts/${params.id}`,
           post
         );
       return navigate('/posts');
     } catch (error) {
-      if (!params.id) await axios.post('http://localhost:4000/api/posts', post);
-      else
-        await axios.put(`http://localhost:4000/api/posts/${params.id}`, post);
+      if (!params.id) await http.post('http://localhost:4000/api/posts', post);
+      else await http.put(`http://localhost:4000/api/posts/${params.id}`, post);
       return navigate('/posts');
     }
   };
