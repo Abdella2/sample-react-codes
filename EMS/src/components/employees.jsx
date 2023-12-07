@@ -3,8 +3,8 @@ import _ from 'lodash';
 import { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import '../App.css';
-import { deleteEmployee, getEmployees } from '../services/fakeEmployeeService';
-import { getGenders } from '../services/fakeGenderService';
+import { deleteEmployee, getEmployees } from '../services/employeeService';
+import { getGenders } from '../services/genderService';
 import paginate from '../utils/paginate';
 import ListGroup from './common/listGroup';
 import Pagination from './common/pagination';
@@ -12,24 +12,35 @@ import EmployeeTable from './employeeTable';
 
 export class Employees extends Component {
   state = {
-    employees: getEmployees(),
-    genders: [{ _id: '', name: 'All Gender' }, ...getGenders()],
+    employees: [],
+    genders: [],
     pageSize: 3,
     currentPage: 1,
     sortColumn: { path: 'employeeNo', order: 'asc' }
   };
 
-  componentDidMount() {
+  async componentDidMount() {
+    const { data: genders } = await getGenders();
+    const { data: employees } = await getEmployees();
+
     this.setState({
+      employees,
+      genders: [{ _id: '', name: 'All Gender' }, ...genders],
       selectedGender: this.state.genders[0]
     });
   }
 
-  handleDelete = (id) => {
-    deleteEmployee(id);
-    this.setState({
-      employees: getEmployees()
-    });
+  handleDelete = async (id) => {
+    try {
+      await deleteEmployee(id);
+      const { data: employees } = await getEmployees();
+      this.setState({
+        employees
+      });
+    } catch (error) {
+      if (error.response && error.response.status === 404)
+        alert('Employee already deleted');
+    }
   };
 
   handLikeChange = (employee) => {
