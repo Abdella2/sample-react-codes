@@ -27,9 +27,9 @@ class EmployeeTable extends Component {
     },
     {
       key: 'delete',
-      content: () => (
+      content: (item) => (
         <button
-          onClick={(item) => this.props.onDelete(item._id)}
+          onClick={() => this.props.onDelete(item._id)}
           className="btn btn-danger">
           Delete
         </button>
