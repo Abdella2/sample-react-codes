@@ -1,6 +1,7 @@
+import config from '../config.json';
 import http from './httpService';
 
-const apiEndpoint = 'http://localhost:4000/api/employees';
+const apiEndpoint = `${config.baseUrl}/employees`;
 
 export function getEmployees() {
   return http.get(apiEndpoint);

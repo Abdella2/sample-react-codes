@@ -1,3 +1,6 @@
+import config from '../config.json';
 import http from './httpService';
 
-export const getGenders = () => http.get('http://localhost:4000/api/genders');
+const apiEndpoint = `${config.baseUrl}/genders`;
+
+export const getGenders = () => http.get(apiEndpoint);
