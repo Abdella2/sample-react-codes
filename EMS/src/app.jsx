@@ -1,5 +1,7 @@
 import { Fragment } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Suppliers from './components/Suppliers';
 import NavBar from './components/common/navbar';
 import NotFound from './components/common/notFound';
@@ -12,6 +14,7 @@ import RegisterForm from './components/registerForm';
 const App = () => {
   return (
     <Fragment>
+      <ToastContainer />
       <NavBar />
       <div className="container mt-3">
         <Routes>

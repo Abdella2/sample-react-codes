@@ -20,14 +20,16 @@ export class Employees extends Component {
   };
 
   async componentDidMount() {
-    const { data: genders } = await getGenders();
-    const { data: employees } = await getEmployees();
+    try {
+      const { data: genders } = await getGenders();
+      const { data: employees } = await getEmployees();
 
-    this.setState({
-      employees,
-      genders: [{ _id: '', name: 'All Gender' }, ...genders],
-      selectedGender: this.state.genders[0]
-    });
+      this.setState({
+        employees,
+        genders: [{ _id: '', name: 'All Gender' }, ...genders],
+        selectedGender: this.state.genders[0]
+      });
+    } catch (error) {}
   }
 
   handleDelete = async (id) => {
@@ -39,7 +41,7 @@ export class Employees extends Component {
       });
     } catch (error) {
       if (error.response && error.response.status === 404)
-        alert('Employee already deleted');
+        alert('Employee has already been deleted');
     }
   };
 
