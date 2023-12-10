@@ -8,15 +8,18 @@ import { getGenders } from '../services/genderService';
 import paginate from '../utils/paginate';
 import ListGroup from './common/listGroup';
 import Pagination from './common/pagination';
+import SearchBox from './common/searchBox';
 import EmployeeTable from './employeeTable';
 
 export class Employees extends Component {
   state = {
     employees: [],
     genders: [],
+    selectedGender: {},
     pageSize: 3,
     currentPage: 1,
-    sortColumn: { path: 'employeeNo', order: 'asc' }
+    sortColumn: { path: 'employeeNo', order: 'asc' },
+    searchKey: ''
   };
 
   async componentDidMount() {
@@ -66,7 +69,8 @@ export class Employees extends Component {
   handleGenderSelectionChange = (selectedGender) => {
     this.setState({
       selectedGender,
-      currentPage: 1
+      currentPage: 1,
+      searchKey: ''
     });
   };
 
@@ -82,15 +86,20 @@ export class Employees extends Component {
       pageSize,
       currentPage,
       selectedGender,
-      sortColumn
+      sortColumn,
+      searchKey
     } = this.state;
 
-    const filteredEmployees =
-      selectedGender && selectedGender._id
-        ? allEmployees.filter(
-            (employee) => employee.gender.name == selectedGender.name
-          )
-        : allEmployees;
+    let filteredEmployees = allEmployees;
+
+    if (selectedGender && selectedGender._id)
+      filteredEmployees = allEmployees.filter(
+        (employee) => employee.gender.name == selectedGender.name
+      );
+    else if (searchKey)
+      filteredEmployees = allEmployees.filter((employee) =>
+        employee.employeeNo.toLowerCase().startsWith(searchKey)
+      );
 
     const sortedEmployees = _.orderBy(
       filteredEmployees,
@@ -101,13 +110,28 @@ export class Employees extends Component {
     return { totalCount: filteredEmployees.length, data: employees };
   };
 
+  handleSearch = (searchKey) => {
+    // ,
+    // sortColumn: { path: 'employeeNo', order: 'asc' },
+    // selectedGender: {}
+    this.setState({
+      searchKey: searchKey.toLowerCase(),
+      currentPage: 1,
+      selectedGender: {}
+    });
+  };
+
   render() {
-    const { genders, pageSize, currentPage, selectedGender, sortColumn } =
-      this.state;
+    const {
+      genders,
+      pageSize,
+      currentPage,
+      selectedGender,
+      sortColumn,
+      searchKey
+    } = this.state;
 
     const { totalCount: count, data: employees } = this.getPagedData();
-
-    if (count === 0) return <p>There is no employee in the database.</p>;
 
     return (
       <Fragment>
@@ -128,19 +152,25 @@ export class Employees extends Component {
             />
           </div>
           <div className="col">
-            <EmployeeTable
-              employees={employees}
-              sortColumn={sortColumn}
-              onLikeChange={this.handLikeChange}
-              onDelete={this.handleDelete}
-              onSort={this.handleSort}
-            />
-            <Pagination
-              totalItems={count}
-              pageSize={pageSize}
-              currentPage={currentPage}
-              onPageChange={this.handlePageChange}
-            />
+            <SearchBox value={searchKey} onChange={this.handleSearch} />
+            {count === 0 && <p>There is no employee in the database.</p>}
+            {count !== 0 && (
+              <div>
+                <EmployeeTable
+                  employees={employees}
+                  sortColumn={sortColumn}
+                  onLikeChange={this.handLikeChange}
+                  onDelete={this.handleDelete}
+                  onSort={this.handleSort}
+                />
+                <Pagination
+                  totalItems={count}
+                  pageSize={pageSize}
+                  currentPage={currentPage}
+                  onPageChange={this.handlePageChange}
+                />
+              </div>
+            )}
           </div>
         </div>
       </Fragment>
