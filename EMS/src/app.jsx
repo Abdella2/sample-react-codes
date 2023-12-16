@@ -1,33 +1,18 @@
 import { Fragment } from 'react';
-import { Navigate, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Suppliers from './components/Suppliers';
 import NavBar from './components/common/navbar';
-import NotFound from './components/common/notFound';
-import Customer from './components/customers';
-import EmployeeForm from './components/employeeForm';
-import { Employees } from './components/employees';
-import LoginForm from './components/loginForm';
-import RegisterForm from './components/registerForm';
+import Postman from './postman';
+import AppRoutes from './routes';
 
 const App = () => {
+  return <Postman />;
   return (
     <Fragment>
       <ToastContainer />
       <NavBar />
       <div className="container mt-3">
-        <Routes>
-          <Route path="/login" element={<LoginForm />} />
-          <Route path="/register" element={<RegisterForm />} />
-          <Route path="/employees" element={<Employees />} />
-          <Route path="/employees/new" element={<EmployeeForm />} />
-          <Route path="/employees/:id" element={<EmployeeForm />} />
-          <Route path="/customers" element={<Customer />} />
-          <Route path="/suppliers" element={<Suppliers />} />
-          <Route path="/" element={<Navigate to="/employees" />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <AppRoutes />
       </div>
     </Fragment>
   );
